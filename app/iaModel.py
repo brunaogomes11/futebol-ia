@@ -79,7 +79,7 @@ def redeNeural(momentum, lr, epocas, hiddenSize, datasetNome, entradas):
 
     # Treinamento
     model.train()
-    epochs = 10000
+    epochs = epocas
     errors = []
     for epoch in range(epochs):
         optimizer.zero_grad()
