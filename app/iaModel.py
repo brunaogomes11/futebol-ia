@@ -75,7 +75,7 @@ def redeNeural(momentum, lr, epocas, hiddenSize, datasetNome, entradas):
     hidden_size = hiddenSize
     model = Net(input_size, hidden_size) 
     criterion = torch.nn.MSELoss()
-    optimizer = torch.optim.SGD(model.parameters(), 0.9, 0.3)
+    optimizer = torch.optim.SGD(model.parameters(), lr, momentum)
 
     # Treinamento
     model.train()
