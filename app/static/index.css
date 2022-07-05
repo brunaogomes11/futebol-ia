@@ -1,0 +1,75 @@
+/* Fontes */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Macondo+Swash+Caps&display=swap');
+
+/* Principal */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: Inter;
+}
+
+.logoSite {
+    font-family: Macondo Swash Caps;
+    font-size: 2em;
+    padding: 5px;
+}
+
+/* Estilizando menu */
+
+.menuDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    align-items: center;
+    width: 100%;
+    background-color: #00BF13;
+    height: 100%;
+}
+
+.menuItem {
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+.active {
+    background-color: #00850D;
+}
+
+.menuItem:hover {
+    background-color: #00850D;
+}
+
+/* Estilizando botões */
+
+.buttons {
+    background-color: #00BF13;
+    padding: 10px 25px;
+    margin: 5px;
+    border: 0px;
+    border-radius: 5px;
+    transition: transform .3s, background-color .3s;
+    user-select: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+.buttons:hover {
+    background-color: #00850D;
+    transform: scale(1.05);
+}
+
+.main {
+    padding: 10px 0;
+    width: 100%;
+}

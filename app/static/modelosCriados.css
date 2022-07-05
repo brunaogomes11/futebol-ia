@@ -1,0 +1,28 @@
+#headerLista {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 40px 0 10px;
+    align-items: center;
+}
+
+#listaModelos {
+    margin: 10px;
+    padding: 0;
+}
+
+#listaModelos li {
+    list-style: none;
+    width: auto;
+    display: grid;
+    grid-template-columns: 13vw 13vw 13vw 13vw 13vw 13vw 18vw;
+    padding: 15px 26px;
+    text-align: center;
+    align-items: center;
+}
+
+.modeloCriadoItem {
+    padding: 15px 26px;
+    border: 1px solid #00930F;
+    width: auto;
+}

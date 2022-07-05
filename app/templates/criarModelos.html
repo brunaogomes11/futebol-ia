@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Modelos - FutPrev</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='criarModelos.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
+    <!-- <link rel="stylesheet" href="../static/criarModelos.css">
+    <link rel="stylesheet" href="../static/index.css"> -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+    <header class="cabecalho">
+        <div class="logoSite">FutPrev</div>
+        <div class="menuDiv">
+            <a class="menuItem">PARTIDAS</a>
+            <a class="menuItem">RESULTADOS</a>
+            <a class="menuItem" href="{{url_for('mostrarModelos')}}">MODELOS I.A</a>
+            <a class="menuItem active">CRIAR MODELO I.A</a>
+        </div>
+    </header>
+    <div class="main">
+        <form action="{{url_for('criarModelos')}}" id="formCriarIA" method=post enctype=multipart/form-data>
+            <label for="paises">País</label>
+            <select name="paises" id="paisesSelect" class="inputForm" onchange="carregarCampeonatosPorPais()" required>
+                <option value="">Selecione um país</option>
+                <optgroup label="Europa">
+                    <option value="england">Inglaterra</option>
+                    <option value="germany">Alemanha</option>
+                </optgroup>
+            </select>
+            <label for="campeonato">Campeonato</label>
+            <select name="campeonato" id="campeonatoSelect" class="inputForm" required>
+                <option value="">Selecione um país primeiro</option>
+            </select>
+            <a class="inputForm buttons" onclick="carregarListaEntradas()">Selecione as entradas</a>
+            <input type="hidden" name="entradasSelecionadas" id="entradasSelecionadas" required>
+            <span id="qntdEntradas"></span>
+            <label for="nomeModelo">Nome</label>
+            <input placeholder="Digite aqui" type="text" name="nomeModelo" id="nomeModeloInput" class="inputForm" required>
+            <label for="descModelo">Descrição</label>
+            <textarea placeholder="Digite aqui" name="descModelo" id="descModeloInput" class="inputForm"></textarea>
+            <div id="lrMomentumHidden">
+                <div class="separadorInputs">
+                    <label for="lrModelo">Taxa de Aprendizado (Learning rate)</label>
+                    <input type="number" min="0" max='0.9' step="0.1" value="0" name="lrModelo" id="lrModeloInput" class="inputForm" required>
+                </div>
+                <div class="separadorInputs">
+                    <label for="momentumModelo">Momentum</label>
+                    <input type="number" min="0" max='0.9' step="0.1" value="0" name="momentumModelo" id="momentumModeloInput" class="inputForm">
+                </div>
+                <div class="separadorInputs">
+                    <label for="hsModelo">Neurônios na Camada Oculta</label>
+                    <input type="number" min="0" value="0" name="hsModelo" id="hsModeloInput" class="inputForm" required>
+                </div>
+            </div>
+            <label for="epochsModelo">Épocas</label>
+            <input type="number" min="0" value="0" name="epochsModelo" id="epochsModeloInput" class="inputForm" required>
+            <input type="submit" id="submitButton" class="buttons">Criar e Treinar</input>
+            <span id="alertaFaltando">Nem todos atributos foram preenchidos</span>
+        </form>
+    </div>
+    <div id="modalEntradas">
+        <div class="formDiv">
+            <a id="fecharModal" onclick="fecharModal()">X</a>
+            <form action="" id="formEntradasIA">
+                <ul id="listaEntradas">
+                    
+                </ul>
+                <div id="marcarDesmarcar">
+                    <a id="marcarButton" class="buttons" onclick="marcarTodas()">Marcar Todos</a>
+                    <a id="desmarcarButton" class="buttons" onclick="desmarcarTodas()">Desmarcar Todos</a>
+                </div>
+                <div class="submitDiv">
+                    <a id="submitButtonEnt" class="buttons" onclick="selecionarEntradas()">Selecionar</a>
+                    <span id="alertaNenhumaEnt">Selecione pelo menos uma entrada</span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="{{url_for('static',filename='criarModelos.js')}}"></script>
+    <!-- <script src="../static/criarModelos.js"></script> -->
+</body>
+</html>

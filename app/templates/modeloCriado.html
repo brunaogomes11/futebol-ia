@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Modelos - FutPrev</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='modeloCriado.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
+</head>
+<body>
+    <header class="cabecalho">
+        <div class="logoSite">FutPrev</div>
+        <div class="menuDiv">
+            <a class="menuItem">PARTIDAS</a>
+            <a class="menuItem">RESULTADOS</a>
+            <a class="menuItem" href="{{url_for('mostrarModelos')}}">MODELOS I.A</a>
+            <a class="menuItem active">CRIAR MODELO I.A</a>
+        </div>
+    </header>
+    <div class="main">
+        <div class="caracteristicasDiv">
+            <h4 class="tituloCaracteristica">País</h4>
+            <span class="textoCaracteristica" id="paisTexto">{{pais}}</span>
+            <h4 class="tituloCaracteristica">Campeonato</h4>
+            <span class="textoCaracteristica" id="campeonatoTexto">{{campEscolhido}}</span>
+            <h4 class="tituloCaracteristica">Nome</h4>
+            <span class="textoCaracteristica" id="nomeTexto">{{nome}}</span>
+            <h4 class="tituloCaracteristica">Descrição</h4>
+            <span class="textoCaracteristica" id="descTexto">{{descricao}}</span>
+            <h4 class="tituloCaracteristica">Taxa de Aprendizado</h4>
+            <span class="textoCaracteristica" id="taxaAprendTexto">{{learningRate}}</span>
+            <h4 class="tituloCaracteristica">Momentum</h4>
+            <span class="textoCaracteristica" id="momentumTexto">{{momentum}}</span>
+            <h4 class="tituloCaracteristica">Neurônios Camada Oculta</h4>
+            <span class="textoCaracteristica" id="neurTexto">{{hiddenSize}}</span>
+            <h4 class="tituloCaracteristica">Tempo de treinamento</h4>
+            <span class="textoCaracteristica" id="tmpTreinTexto">{{tempo}}</span>
+            <div id="btnsDiv">
+                <a href="{{url_for('mostrarModelos')}}" class="buttons" id="salvarBtn">Salvar</a>
+                <a href="{{url_for('criarModelos')}}" class="buttons" id="descartarBtn">Descartar</a>
+            </div>
+        </div>
+        <div class="graficosDiv">
+            <h2>GRÁFICOS</h2>
+            <img src="{{url_for('display_image', filename=filename)}}" class="imagemGraficos" id="graficoResult" alt="Gráfico de treinamento do modelo criado">
+        </div>
+    </div>
+</body>
+</html>
