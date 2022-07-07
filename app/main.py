@@ -17,8 +17,6 @@ campeonatosPorPais = [
     ]}
 ]
 
-iaSalvar = {}
-
 @app.route("/", methods=["GET", "POST"])
 def criarModelos():
     if request.method == 'POST':
@@ -38,9 +36,13 @@ def criarModelos():
         hiddenSize = request.form['hsModelo']
         epocas = request.form['epochsModelo']
         entradas = request.form['entradasSelecionadas']
-        tempo, erros = redeNeural(momentumModelo, lrModelo, epocas, hiddenSize, datasetEscolhido, entradas)
+        tempo, erros= redeNeural(momentumModelo, lrModelo, epocas, hiddenSize, datasetEscolhido, entradas)
         return render_template("modeloCriado.html", pais=paisEscolhido, campEscolhido=campeonatoEscolhido, nome=nomeModeloIA, descricao=descModeloIA, learningRate=lrModelo, momentum=momentumModelo, hiddenSize=hiddenSize, entradas=entradas, tempo=tempo, erros=erros, filename='graficoTrain.png')
     return render_template('criarModelos.html')
+
+@app.route('/modelos')
+def mostrarModelos():
+    return render_template('modelosCriados.html')
 
 def descartarIA():
     return redirect('/')
@@ -48,10 +50,6 @@ def descartarIA():
 @app.route('/display/<filename>')
 def display_image(filename):
 	return redirect(url_for('static', filename='temp/' + filename), code=301)
-
-@app.route('/modelos')
-def mostrarModelos():
-    return render_template('modelosCriados.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=int(os.environ.get('PORT', 5000)))

@@ -75,11 +75,11 @@ def redeNeural(momentum, lr, epocas, hiddenSize, datasetNome, entradas):
     hidden_size = hiddenSize
     model = Net(input_size, hidden_size) 
     criterion = torch.nn.MSELoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr, momentum)
+    optimizer = torch.optim.SGD(model.parameters(), 0.9, 0.3)
 
     # Treinamento
     model.train()
-    epochs = epocas
+    epochs = 10000
     errors = []
     for epoch in range(epochs):
         optimizer.zero_grad()
@@ -99,9 +99,10 @@ def redeNeural(momentum, lr, epocas, hiddenSize, datasetNome, entradas):
     model.eval()
     y_pred = model(test_input)
     erro_pos_treinamento = criterion(y_pred.squeeze(), test_output.squeeze())
-    print('Testando perda apos o treinamento' , erro_pos_treinamento.item())
     plotcharts(test_output, y_pred, errors)
-    return tempo_total, erro_pos_treinamento.item()
+    torch.save(model.state_dict(), "app/data/modeloTreinado.pth")
+    erro_pos_treinamento = erro_pos_treinamento.item()/len(test_output)
+    return tempo_total, erro_pos_treinamento
 
 def plotcharts(test_output, y_pred, errors):
     errors = np.array(errors)
