@@ -1,6 +1,7 @@
+import pandas as pd
 from app.iaModel import redeNeural
 import os
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, jsonify, redirect, render_template, request, url_for
 
 app = Flask(__name__)
 
@@ -12,8 +13,8 @@ campeonatosPorPais = [
         {"nome": "EFL Championship", "value": "eflChm", "nome_dataset": "E1"}
     ]}, 
     {"pais": "Alemanha", "value": "germany", "campeonatos": [
-        {"nome": "Premier League", "value": "premierLeague", "nome_dataset": "E0"},
-        {"nome": "EFL Championship", "value": "eflChm", "nome_dataset": "E1"}
+        {"nome": "Bundesliga 1", "value": "bdl1", "nome_dataset": "D1"},
+        {"nome": "Bundesliga 2", "value": "bdl2", "nome_dataset": "D2"}
     ]}
 ]
 
@@ -30,14 +31,14 @@ def criarModelos():
                         campeonatoEscolhido = campeonatosPorPais[i]["campeonatos"][j]["nome"]
                         datasetEscolhido = campeonatosPorPais[i]["campeonatos"][j]["nome_dataset"]
         nomeModeloIA = request.form['nomeModelo']
-        descModeloIA = request.form['descModelo']
         lrModelo = request.form['lrModelo']
         momentumModelo = request.form['momentumModelo']
         hiddenSize = request.form['hsModelo']
         epocas = request.form['epochsModelo']
         entradas = request.form['entradasSelecionadas']
-        tempo, erros= redeNeural(momentumModelo, lrModelo, epocas, hiddenSize, datasetEscolhido, entradas)
-        return render_template("modeloCriado.html", pais=paisEscolhido, campEscolhido=campeonatoEscolhido, nome=nomeModeloIA, descricao=descModeloIA, learningRate=lrModelo, momentum=momentumModelo, hiddenSize=hiddenSize, entradas=entradas, tempo=tempo, erros=erros, filename='graficoTrain.png')
+        tempo, erros, previsoes, reais = redeNeural(nomeModeloIA, momentumModelo, lrModelo, epocas, hiddenSize, datasetEscolhido, entradas)
+        salvarEstatisticas(nomeModeloIA, datasetEscolhido, lrModelo, momentumModelo, hiddenSize, epocas, reais, previsoes, entradas)
+        return jsonify(nomeModeloIA, datasetEscolhido, lrModelo, momentumModelo, hiddenSize, epocas, entradas)
     return render_template('criarModelos.html')
 
 @app.route('/modelos')
@@ -50,6 +51,31 @@ def descartarIA():
 @app.route('/display/<filename>')
 def display_image(filename):
 	return redirect(url_for('static', filename='temp/' + filename), code=301)
+
+def salvarEstatisticas(nome, dataset, lr, momentum, hiddenSize, epocas, real, previsao, entradas):
+    for i in range(0, len(previsao)):
+        if previsao[i] > 0.50:
+            previsao[i] = 1
+        elif previsao[i] <= 0.50 and previsao[i] >= -0.50:
+            previsao[i] = 0
+        elif previsao[i] < -0.50:
+            previsao[i] = -1
+    acertos = 0
+    for i in range (0, len(real)):
+        if real[i] == previsao[i]:
+            acertos += 1
+    tabela = pd.read_excel("app/data/Estatisticas.xlsx")
+    tamanho_tabela = int(len(tabela))
+    tabela.loc[tamanho_tabela, "Nome"] = nome
+    tabela.loc[tamanho_tabela, "Dataset"] = dataset
+    tabela.loc[tamanho_tabela, "Learning Rate"] = lr
+    tabela.loc[tamanho_tabela, "Momentum"] = momentum
+    tabela.loc[tamanho_tabela, "Tamanho Camada Oculta"] = hiddenSize
+    tabela.loc[tamanho_tabela, "Epocas"] = epocas
+    tabela.loc[tamanho_tabela, "Acertos/Total"] = f'{acertos} de {len(real)}'
+    tabela.loc[tamanho_tabela, "Entradas"] = str(entradas)
+    tabela.to_excel("app/data/Estatisticas.xlsx", index=False)
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=int(os.environ.get('PORT', 5000)))

@@ -4,7 +4,7 @@ import torch
 import time
 import matplotlib.pyplot as plt
 
-def redeNeural(momentum, lr, epocas, hiddenSize, datasetNome, entradas):
+def redeNeural(nome, momentum, lr, epocas, hiddenSize, datasetNome, entradas):
     entradas = entradas.replace("[", "")
     entradas = entradas.replace("]", "")
     entradas = entradas.split(",")
@@ -13,7 +13,6 @@ def redeNeural(momentum, lr, epocas, hiddenSize, datasetNome, entradas):
     epocas = int(epocas)
     hiddenSize = int(hiddenSize)
     start = time.perf_counter()
-    datasetNome = 'E0'
     datasetNome = datasetNome+'.csv'
     columns_data = ['HomeTeam', 'AwayTeam', 'FTR']
     for entrada in entradas:
@@ -27,11 +26,14 @@ def redeNeural(momentum, lr, epocas, hiddenSize, datasetNome, entradas):
     test = test.sample(frac=1)
 
     nomes = data[['HomeTeam', 'AwayTeam']]
-    data1 = data.iloc[:, 2:]
-    data_transformed = data1.replace({"H":1,"D":0,"A":-1})
+    # mediaStats(data)
+    data1 = data.iloc[:, 3:]
+    data2 = data[['FTR']]
+    data_transformed = data2.replace({"H":1,"D":0,"A":-1})
     input = data1.replace({"H":1,"D":0,"A":-1})
     output = data_transformed[['FTR']]
-
+    nomes_training = nomes[:-10]
+    nomes_test = nomes[-10:]
     #Normalização de dados
     for e in range(len(input.columns)): 
         max = input.iloc[:, e].max() #checar o valor maximo de cada coluna
@@ -75,11 +77,11 @@ def redeNeural(momentum, lr, epocas, hiddenSize, datasetNome, entradas):
     hidden_size = hiddenSize
     model = Net(input_size, hidden_size) 
     criterion = torch.nn.MSELoss()
-    optimizer = torch.optim.SGD(model.parameters(), 0.9, 0.3)
+    optimizer = torch.optim.SGD(model.parameters(), lr, momentum)
 
     # Treinamento
     model.train()
-    epochs = 10000
+    epochs = epocas
     errors = []
     for epoch in range(epochs):
         optimizer.zero_grad()
@@ -99,14 +101,16 @@ def redeNeural(momentum, lr, epocas, hiddenSize, datasetNome, entradas):
     model.eval()
     y_pred = model(test_input)
     erro_pos_treinamento = criterion(y_pred.squeeze(), test_output.squeeze())
-    plotcharts(test_output, y_pred, errors)
+    predicted = y_pred.detach().numpy()
+    real = test_output.numpy()
+    plotcharts(test_output, y_pred, errors, nomes_test)
     torch.save(model.state_dict(), "app/data/modeloTreinado.pth")
     erro_pos_treinamento = erro_pos_treinamento.item()/len(test_output)
-    return tempo_total, erro_pos_treinamento
+    return tempo_total, erro_pos_treinamento, predicted, real
 
-def plotcharts(test_output, y_pred, errors):
+def plotcharts(test_output, y_pred, errors, nomes_test):
     errors = np.array(errors)
-    plt.figure(figsize=(8, 3))
+    plt.figure(figsize=(12, 5))
     graf02 = plt.subplot(1, 2, 1) # nrows, ncols, index
     graf02.set_title('Errors')
     plt.plot(errors, '-')
@@ -117,5 +121,18 @@ def plotcharts(test_output, y_pred, errors):
     plt.setp(a, markersize=10)
     a = plt.plot(y_pred.detach().numpy(), 'b+', label='Predicted')
     plt.setp(a, markersize=10)
-    plt.legend(loc=7)
-    plt.savefig('app/static/temp/graficoTrain.png')
+    xx = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    for x, home, away in zip(xx, nomes_test['HomeTeam'], nomes_test['AwayTeam']):
+      plt.text(x, 1.3, home, rotation='vertical')
+      plt.text(x, -1.3, away, rotation='vertical', verticalalignment='top')
+    plt.legend(loc=0)
+    plt.savefig('app/static/temp/graficoTrain.png', bbox_inches='tight')
+
+# def mediaStats(input):
+#     times = input["HomeTeam"].drop_duplicates()
+#     media_times = []
+#     for i in range(0, len(input)):
+#         for j in range (0, len(times)):
+            
+
+#     print(times)
