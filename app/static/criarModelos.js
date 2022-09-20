@@ -1,19 +1,17 @@
 
 // Dados
 const campeonatosPorPais = [
-    {pais: "Inglaterra", value: "england", campeonatos: [
-        {nome: "Premier League", value: "premierLeague", nome_dataset: "E0"},
-        {nome: "EFL Championship", value: "eflChm", nome_dataset: "E1"}
-    ]}, 
-    {pais: "Alemanha", value: "germany", campeonatos: [
-        {nome: "Premier League", value: "premierLeague", nome_dataset: "E0"},
-        {nome: "EFL Championship", value: "eflChm", nome_dataset: "E1"}
+    {"pais": "Alemanha", "value": "germany", "campeonatos": [
+        {"nome": "Bundesliga 1", "value": "bdl1", "nome_dataset": "D1"},
+        {"nome": "Bundesliga 2", "value": "bdl2", "nome_dataset": "D2"}
+    ]},
+    {"pais": "Inglaterra", "value": "england", "campeonatos": [
+        {"nome": "Premier League", "value": "premierLeague", "nome_dataset": "E0"},
+        {"nome": "EFL Championship", "value": "eflChm", "nome_dataset": "E1"}
     ]}
 ]
 
 const entradas = [
-    {sigla: 'FTHG', signif: 'Gols do Time da Casa na partida inteira'}, 
-    {sigla: 'FTAG', signif: 'Gols do Time de Fora na partida inteira'},
     {sigla: 'HTHG', signif: 'Gols do Time da Casa no 1° tempo'},
     {sigla: 'HTAG', signif: 'Gols do Time de Fora no 1° tempo'},
     {sigla: 'HTR', signif: 'Resultado 1° tempo (Vitória, Empate, Derrota)'},
@@ -27,18 +25,18 @@ const entradas = [
     {sigla: 'AY', signif: 'Cartões Amarelos para o time de fora'},
     {sigla: 'HR', signif: 'Cartões Vermelhos para o time da casa'},
     {sigla: 'AR', signif: 'Cartões Vermelhos para o time de fora'},
-    {sigla: 'B365H', signif: 'Odd na casa B365 para a vitória do time da casa'},
-    {sigla: 'B365D', signif: 'Odd na casa B365 para o empate'},
-    {sigla: 'B365A', signif: 'Odd na casa B365 para a vitória do time de fora'},
-    {sigla: 'BWH', signif: 'Odd na casa Bet&Win para a vitória do time da casa'},
-    {sigla: 'BWD', signif: 'Odd na casa Bet&Win para o empate'},
-    {sigla: 'BWA', signif: 'Odd na casa Bet&Win para a vitória do time de fora'},
-    {sigla: 'IWH', signif: 'Odd na casa Interwetten para a vitória do time da casa'},
-    {sigla: 'IWD', signif: 'Odd na casa Interwetten para o empate'},
-    {sigla: 'IWA', signif: 'Odd na casa Interwetten para a vitória do time de fora'},
-    {sigla: 'PSH', signif: 'Odd na casa Pinnacle para a vitória do time da casa'},
-    {sigla: 'PSD', signif: 'Odd na casa Pinnacle para o empate'},
-    {sigla: 'PSA', signif: 'Odd na casa Pinnacle para a vitória do time de fora'},
+    // {sigla: 'B365H', signif: 'Odd na casa B365 para a vitória do time da casa'},
+    // {sigla: 'B365D', signif: 'Odd na casa B365 para o empate'},
+    // {sigla: 'B365A', signif: 'Odd na casa B365 para a vitória do time de fora'},
+    // {sigla: 'BWH', signif: 'Odd na casa Bet&Win para a vitória do time da casa'},
+    // {sigla: 'BWD', signif: 'Odd na casa Bet&Win para o empate'},
+    // {sigla: 'BWA', signif: 'Odd na casa Bet&Win para a vitória do time de fora'},
+    // {sigla: 'IWH', signif: 'Odd na casa Interwetten para a vitória do time da casa'},
+    // {sigla: 'IWD', signif: 'Odd na casa Interwetten para o empate'},
+    // {sigla: 'IWA', signif: 'Odd na casa Interwetten para a vitória do time de fora'},
+    // {sigla: 'PSH', signif: 'Odd na casa Pinnacle para a vitória do time da casa'},
+    // {sigla: 'PSD', signif: 'Odd na casa Pinnacle para o empate'},
+    // {sigla: 'PSA', signif: 'Odd na casa Pinnacle para a vitória do time de fora'},
 ]
 
 let entradasSelecionadas = []
