@@ -38,7 +38,8 @@ def criarModelos():
         entradas = request.form['entradasSelecionadas']
         tempo, erros, previsoes, reais = redeNeural(nomeModeloIA, momentumModelo, lrModelo, epocas, hiddenSize, datasetEscolhido, entradas)
         salvarEstatisticas(nomeModeloIA, datasetEscolhido, lrModelo, momentumModelo, hiddenSize, epocas, reais, previsoes, entradas)
-        return jsonify(nomeModeloIA, datasetEscolhido, lrModelo, momentumModelo, hiddenSize, epocas, entradas)
+        # return jsonify(nomeModeloIA, datasetEscolhido, lrModelo, momentumModelo, hiddenSize, epocas, entradas)
+        return render_template('modeloCriado.html',pais=paisEscolhido, campEscolhido=campeonatoEscolhido, nome=nomeModeloIA, dataset=datasetEscolhido, learningRate=lrModelo, momentum=momentumModelo, hiddenSize=hiddenSize, erros=erros, tempo=tempo, filename='graficoTrain.png')
     return render_template('criarModelos.html')
 
 @app.route('/modelos')
