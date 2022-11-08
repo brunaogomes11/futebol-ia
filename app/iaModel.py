@@ -1,3 +1,4 @@
+from os import times_result
 import pandas as pd
 import numpy as np
 import torch
@@ -26,7 +27,6 @@ def redeNeural(nome, momentum, lr, epocas, hiddenSize, datasetNome, entradas):
     test = test.sample(frac=1)
 
     nomes = data[['HomeTeam', 'AwayTeam']]
-    # mediaStats(data)
     data1 = data.iloc[:, 3:]
     data2 = data[['FTR']]
     data_transformed = data2.replace({"H":1,"D":0,"A":-1})
@@ -127,12 +127,3 @@ def plotcharts(test_output, y_pred, errors, nomes_test):
       plt.text(x, -1.3, away, rotation='vertical', verticalalignment='top')
     plt.legend(loc=0)
     plt.savefig('app/static/temp/graficoTrain.png', bbox_inches='tight')
-
-# def mediaStats(input):
-#     times = input["HomeTeam"].drop_duplicates()
-#     media_times = []
-#     for i in range(0, len(input)):
-#         for j in range (0, len(times)):
-            
-
-#     print(times)

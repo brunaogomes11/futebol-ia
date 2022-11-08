@@ -20,24 +20,37 @@
     </header>
     <div class="main">
         <div class="caracteristicasDiv">
-            <h4 class="tituloCaracteristica">País</h4>
-            <span class="textoCaracteristica" id="paisTexto">{{pais}}</span>
-            <h4 class="tituloCaracteristica">Campeonato</h4>
-            <span class="textoCaracteristica" id="campeonatoTexto">{{campEscolhido}}</span>
-            <h4 class="tituloCaracteristica">Nome</h4>
-            <span class="textoCaracteristica" id="nomeTexto">{{nome}}</span>
-            <h4 class="tituloCaracteristica">Dataset</h4>
-            <span class="textoCaracteristica" id="descTexto">{{dataset}}</span>
-            <h4 class="tituloCaracteristica">Taxa de Aprendizado</h4>
-            <span class="textoCaracteristica" id="taxaAprendTexto">{{learningRate}}</span>
-            <h4 class="tituloCaracteristica">Momentum</h4>
-            <span class="textoCaracteristica" id="momentumTexto">{{momentum}}</span>
-            <h4 class="tituloCaracteristica">Neurônios Camada Oculta</h4>
-            <span class="textoCaracteristica" id="neurTexto">{{hiddenSize}}</span>
-            <h4 class="tituloCaracteristica">Erros pós treinamento</h4>
-            <span class="textoCaracteristica" id="neurTexto">{{erros}}</span>
-            <h4 class="tituloCaracteristica">Tempo de treinamento</h4>
-            <span class="textoCaracteristica" id="tmpTreinTexto">{{tempo}}</span>
+            <div class="caracteristicaDiv">
+                <h4 class="tituloCaracteristica">Campeonato</h4>
+                <span class="textoCaracteristica" id="campeonatoTexto">{{campEscolhido}}</span>
+            </div>
+            <div class="caracteristicaDiv">
+                <h4 class="tituloCaracteristica">Nome</h4>
+                <span class="textoCaracteristica" id="nomeTexto">{{nome}}</span>
+            </div>
+            <div class="caracteristicaDiv">
+                <h4 class="tituloCaracteristica">Dataset</h4>
+                <span class="textoCaracteristica" id="descTexto">{{dataset}}</span>
+            </div>
+            <div class="caracteristicaDiv">
+                <h4 class="tituloCaracteristica">Taxa de Aprendizado</h4>
+                <span class="textoCaracteristica" id="taxaAprendTexto">{{learningRate}}</span>
+            </div>
+            <div class="caracteristicaDiv">
+                <h4 class="tituloCaracteristica">Momentum</h4>
+                <span class="textoCaracteristica" id="momentumTexto">{{momentum}}</span>
+            </div>
+            <div class="caracteristicaDiv">
+                <h4 class="tituloCaracteristica">Neurônios Camada Oculta</h4>
+                <span class="textoCaracteristica" id="neurTexto">{{hiddenSize}}</span></div>
+            <div class="caracteristicaDiv">
+                <h4 class="tituloCaracteristica">Erros pós treinamento</h4>
+                <span class="textoCaracteristica" id="neurTexto">{{erros}}</span>
+            </div>
+            <div class="caracteristicaDiv">
+                <h4 class="tituloCaracteristica">Tempo de treinamento</h4>
+                <span class="textoCaracteristica" id="tmpTreinTexto">{{tempo}}</span>
+            </div>
             <div id="btnsDiv">
                 <a href="{{url_for('mostrarModelos')}}" class="buttons" id="salvarBtn">Salvar</a>
                 <a href="{{url_for('criarModelos')}}" class="buttons" id="descartarBtn">Descartar</a>
